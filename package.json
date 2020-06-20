@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "cypress": "^4.7.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-emoji-render": "^1.2.2",
@@ -22,11 +23,17 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --env=jsdom",
+    "test:watch": "npm test -- --watch",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "jest": {
+    "setupFiles": [
+      "./src/test/jest/setupFiles"
+    ]
   },
   "browserslist": {
     "production": [
@@ -39,5 +46,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-jest": "^26.0.1",
+    "jest": "^26.0.1",
+    "react-test-renderer": "^16.13.1"
   }
 }

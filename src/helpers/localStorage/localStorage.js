@@ -4,7 +4,7 @@ const storage = window.localStorage || {
     removeItem: () => {}
 }
 
-function set (item, val) {
+function set(item, val) {
     storage.setItem(item, val)
 }
 
