@@ -1,20 +1,24 @@
-export const DEFAULT_TAB_KEY = 'myQuestions'
+export const DEFAULT_TAB_KEY = 'unansweredQuestions'
 
 export const TABS_MAP = [
     {
-        key: 'myQuestions',
-        name: 'My Questions',
+        key: 'unansweredQuestions',
+        name: 'Unanswered Questions',
+        link: '',
     },
     {
         key: 'answeredQuestions',
         name: 'Answered Questions',
+        link: '',
     },
     {
-        key: 'unansweredQuestions',
-        name: 'Unanswered Questions',
+        key: 'myQuestions',
+        name: 'My Questions',
+        link: '',
     },
     {
         key: 'leaderboard',
         name: 'Leader Board',
+        link: '/leaderboard',
     }
 ]
