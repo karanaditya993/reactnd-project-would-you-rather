@@ -9,7 +9,7 @@ import Tabs  from '@material-ui/core/Tabs'
 import  { TabPanel } from '../styled'
 import { DEFAULT_TAB_KEY, TABS_MAP } from './constants'
 import { setAvailableQuestions, setAuthedUserQuestions } from '../../actions'
-import {  Route } from 'react-router-dom'
+import {  Route, Link } from 'react-router-dom'
 
 function mapStateToProps({ users, authedUser, questions, authedUserQuestions, availableQuestions }) {
     return {
@@ -26,6 +26,10 @@ class Dashboard extends Component {
         currentTab: DEFAULT_TAB_KEY,
     }
     componentDidMount() {
+        const locationPathName = window.location.pathname
+        if (locationPathName.includes('leaderboard')) {
+            this.activateTab('leaderboard')
+        }
         this.props.dispatch(setAuthedUserQuestions(this.props))
         this.props.dispatch(setAvailableQuestions(this.props))
     }
@@ -39,22 +43,27 @@ class Dashboard extends Component {
         const { authedUserQuestions, availableQuestions  } = this.props
         return (
             <div className="dashboard">
-                    <Route exact path='/'>
+                    <Route path='/'>
                         <Tabs className="dashboard-tabs" value={currentTab} centered>
                             {TABS_MAP.map((tab) => (
-                                <Tab onClick={() => {  this.activateTab(tab.key) }} key={tab.key} label={tab.name} value={tab.key} />
+                                <Tab onClick={() => {  this.activateTab(tab.key) }} 
+                                    label={tab.name} 
+                                    key={tab.key}   
+                                    value={tab.key} 
+                                    component={Link} 
+                                    to={tab.link}/>
                             ))}
                         </Tabs>
                         {TABS_MAP.map((tab) => (
                             <TabPanel className="panel-content" key={tab.key} value={tab.key} index={currentTab}>
-                                {tab.key === 'myQuestions' && (
-                                    <Questions data={authedUserQuestions}></Questions>
+                                {tab.key === 'unansweredQuestions' && availableQuestions && (
+                                    <Questions data={availableQuestions.unansweredQuestions}></Questions>
                                 )}
                                 {tab.key === 'answeredQuestions' && availableQuestions && (
                                     <Questions data={availableQuestions.answeredQuestions}></Questions>
                                 )}
-                                {tab.key === 'unansweredQuestions' && availableQuestions && (
-                                    <Questions data={availableQuestions.unansweredQuestions}></Questions>
+                                {tab.key === 'myQuestions' && (
+                                    <Questions data={authedUserQuestions}></Questions>
                                 )}
                                 {tab.key === 'leaderboard' && (
                                     <Leaderboard></Leaderboard>
