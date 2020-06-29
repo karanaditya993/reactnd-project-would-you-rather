@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
+import Avatar from '@material-ui/core/Avatar'
 import SwipeableViews from 'react-swipeable-views'
 import Pagination from '@material-ui/lab/Pagination'
 import Vote from '../vote/Vote'
 import './questions.css'
 import { updateQuestionsWithVotes } from '../../actions'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 const  QUESTION_NAME = 'Would you rather?'
@@ -55,9 +58,10 @@ class Questions extends Component {
                     <React.Fragment>
                         <SwipeableViews index={activeQuestionIdx}>
                             {data.map((question) => (
-                                <Container key={question.id} className="question-widget" disableGutters>
+                                <React.Fragment key={question.id} >
+                                    <Container className="question-widget" disableGutters>
                                     <div className="question-banner">
-                                        {users[question.author].name} asks
+                                        <Avatar src={users[question.author].avatarURL}></Avatar>{users[question.author].name} asks
                                         <div>{QUESTION_NAME}</div>
                                     </div>
                                     <div className="question-options">
@@ -76,6 +80,10 @@ class Questions extends Component {
                                         </div>
                                     </div>
                                 </Container>
+                                <Link className="view-details-link" to={`/questions/${question.id}`}>
+                                    <Button variant="outlined" color="primary">toggle details</Button>
+                                </Link>
+                            </React.Fragment>
                             ))}
                         </SwipeableViews>
                         <Pagination className="pagination-counter" 

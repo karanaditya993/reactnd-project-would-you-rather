@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import './dashboard.css'
 import Questions from '../questions/Questions'
 import Leaderboard from '../leaderboard/Leaderboard'
-import AddQuestion from '../questions/AddQuestion'
+import AddQuestion from '../questions/add/AddQuestion'
 import { connect } from 'react-redux'
 import Tab from '@material-ui/core/Tab'
 import Tabs  from '@material-ui/core/Tabs'
 import  { TabPanel } from '../styled'
+import QuestionDetails from '../questions/details/QuestionDetails'
 import { DEFAULT_TAB_KEY, TABS_MAP } from './constants'
 import { setAvailableQuestions, setAuthedUserQuestions } from '../../actions'
 import {  Route, Link } from 'react-router-dom'
@@ -72,6 +73,7 @@ class Dashboard extends Component {
                         ))}
                 </Route>
                 <Route exact path='/add' render={({ history }) =><AddQuestion history={history}/>}/>
+                <Route exact path='/questions/:question_id' render={({match}) => <QuestionDetails params={match.params}/>}></Route>
             </div>
         );
     }

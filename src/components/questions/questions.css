@@ -79,3 +79,13 @@
     align-items: center;
     justify-content: center;
 }
+
+.view-details-link {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: grey;
+    margin-bottom: 20px;
+}

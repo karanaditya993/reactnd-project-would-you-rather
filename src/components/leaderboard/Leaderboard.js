@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import LeaderboardCard from '../styled/LeaderboardCard'
+import LeaderboardCard from './LeaderboardCard'
 import { connect } from 'react-redux'
 import './leaderboard.css'
 
