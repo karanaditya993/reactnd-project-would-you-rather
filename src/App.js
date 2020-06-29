@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
 import { CircularAddBtn } from './components/styled'
-import { getAuthedUser, setAuthedUser, removeAuthedUser, getQuestions, setAuthedUserQuestions, setAvailableQuestions } from './actions'
+import { setAuthedUser, getQuestions, setAuthedUserQuestions, setAvailableQuestions } from './actions'
 import { isEmptyObject } from './helpers'
 import {  Route, Link } from 'react-router-dom'
 
@@ -67,13 +67,13 @@ class App extends Component {
         this.dashboardContainer = React.createRef()
     }
     componentDidMount() {
-        const authedUser = this.props.dispatch(getAuthedUser()).id
+        // const authedUser = this.props.dispatch(getAuthedUser()).id
         setOpacityLevels.call(this)
         setTimeout(() => {
             this.appContainer.current.style.height = SMALL_CONTAINER_TRANSITION_END_HEIGHT
-            if (authedUser) { this.expandContainer() }
+            // if (authedUser) { this.expandContainer() }
         }, 1000)
-        this.props.dispatch(setAuthedUser(authedUser))
+        // this.props.dispatch(setAuthedUser(authedUser))
         this.props.dispatch(getQuestions())
     }
     expandContainer() {
@@ -83,7 +83,7 @@ class App extends Component {
         setOpacityLevels.call(this, true)
     }
     handleLogout() {
-        this.props.dispatch(removeAuthedUser())
+        this.props.dispatch(setAuthedUser(null))
         this.props.dispatch(setAuthedUserQuestions({}))
         this.props.dispatch(setAvailableQuestions({}))
     }
@@ -106,7 +106,7 @@ class App extends Component {
                         <AccountCircleOutlinedIcon style={{fill: "white"}} fontSize="large"></AccountCircleOutlinedIcon>
                     )}
                     {authedUser && authedUser.avatarURL && (
-                        <Button variant="contained">
+                        <Button variant="contained" disableRipple disableFocusRipple>
                             <AuthedUserIcon avatarURL={ authedUser.avatarURL }></AuthedUserIcon>
                             Welcome, {authedUser.name.split(' ')[0]}
                         </Button>

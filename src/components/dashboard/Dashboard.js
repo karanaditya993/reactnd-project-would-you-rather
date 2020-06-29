@@ -39,6 +39,11 @@ class Dashboard extends Component {
             currentTab: tabKey || DEFAULT_TAB_KEY
         })
     }
+    handleQuestionClick(isAnswering) {
+        this.setState({
+            currentTab: isAnswering ? 'answeredQuestions' : 'unansweredQuestions'
+        });
+    }
     render() {
         const { currentTab } = this.state
         const { authedUserQuestions, availableQuestions  } = this.props
@@ -58,13 +63,13 @@ class Dashboard extends Component {
                         {TABS_MAP.map((tab) => (
                             <TabPanel className="panel-content" key={tab.key} value={tab.key} index={currentTab}>
                                 {tab.key === 'unansweredQuestions' && availableQuestions && (
-                                    <Questions data={availableQuestions.unansweredQuestions}></Questions>
+                                    <Questions data={availableQuestions.unansweredQuestions} onQuestionClicked={(isAnswering) => this.handleQuestionClick(isAnswering)}></Questions>
                                 )}
                                 {tab.key === 'answeredQuestions' && availableQuestions && (
-                                    <Questions data={availableQuestions.answeredQuestions}></Questions>
+                                    <Questions data={availableQuestions.answeredQuestions} onQuestionClicked={(isAnswering) => this.handleQuestionClick(isAnswering)}></Questions>
                                 )}
                                 {tab.key === 'myQuestions' && (
-                                    <Questions data={authedUserQuestions}></Questions>
+                                    <Questions data={authedUserQuestions} onQuestionClicked={(isAnswering) => this.handleQuestionClick(isAnswering)}></Questions>
                                 )}
                                 {tab.key === 'leaderboard' && (
                                     <Leaderboard></Leaderboard>
@@ -72,7 +77,7 @@ class Dashboard extends Component {
                             </TabPanel>
                         ))}
                 </Route>
-                <Route exact path='/add' render={({ history }) =><AddQuestion history={history}/>}/>
+                <Route exact path='/add' render={({ history }) =><AddQuestion history={history} onQuestionAdded={() => { this.setState({currentTab: 'unansweredQuestions'}) }}/>}/>
                 <Route exact path='/questions/:question_id' render={({match}) => <QuestionDetails params={match.params}/>}></Route>
             </div>
         );

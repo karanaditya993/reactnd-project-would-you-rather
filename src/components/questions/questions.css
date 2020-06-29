@@ -10,11 +10,13 @@
 .question-widget {
     display: flex !important;
     flex-direction: column;
-    /* border: 1px solid #d3d3d3; */
     border-radius: 4px;
     height: 250px;
+    width: 600px !important;
     margin: 20px;
     cursor: pointer;
+    text-decoration: none;
+    color: black;
 }
 
 .question-banner,
@@ -88,4 +90,14 @@
     text-decoration: none;
     color: grey;
     margin-bottom: 20px;
+}
+
+.created-on-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 14px;
+    color: grey;
+    margin-bottom: 10px;
 }

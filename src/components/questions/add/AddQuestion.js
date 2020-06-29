@@ -50,6 +50,7 @@ class AddQuestion extends Component {
                     showAddingLoader: false,
                 })
                 history.push('/');
+                this.props.onQuestionAdded();
             })
             return;
         }

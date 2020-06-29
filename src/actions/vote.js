@@ -37,5 +37,7 @@ export function updateQuestionsWithVotes(questionId, option, props) {
         dispatch(receiveQuestions(props.questions))
         dispatch(updateUserAnswers(questionId, option, props))
         dispatch(setAvailableQuestions(props))
+        const votes = props.questions[questionId].optionOne.votes.concat(props.questions[questionId].optionTwo.votes)
+        return Promise.resolve(votes.indexOf(props.authedUser) > -1)
     }
 }
