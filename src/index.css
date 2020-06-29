@@ -80,10 +80,6 @@ code {
     }
 }
 
-#logout-selector {
-    display: none;
-}
-
 .add-question-btn {
     position: absolute;
     bottom: 15px;
@@ -95,4 +91,10 @@ code {
 
 .add-question-btn:active {
     box-shadow: none;
+}
+
+.sign-out-container {
+    position: absolute;
+    left: 15px;
+    top: 15px;
 }

@@ -33,9 +33,9 @@ class QuestionDetails extends Component {
             question: getQuestionInfo(this.props),
         })
     }
-    getPercentageWidth(votes) {
-        const totalUsers = Object.keys(this.props.users).length
-        return `${Math.round((votes.length / totalUsers) * 100)}%`
+    getPercentageWidth(optionVotes) {
+        const totalVotes = this.state.question.optionOne.votes.length + this.state.question.optionTwo.votes.length
+        return `${Math.round((optionVotes.length / totalVotes) * 100)}%`
     }
     render() {
         const { users } = this.props
