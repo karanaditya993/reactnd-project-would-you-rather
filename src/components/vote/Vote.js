@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Avatar from '@material-ui/core/Avatar'
+import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import Backdrop from '@material-ui/core/Backdrop'
 import Modal from '@material-ui/core/Modal'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
@@ -60,15 +62,13 @@ class Vote extends Component {
     }
     render() {
         const { modalOpen, voterObjects } = this.state
-        const { votes, activeIconColor } = this.props
         return (
             <div className="vote">
-                {activeIconColor !== 'action' && (
-                    <div className="vote-count">
-                        {votes.length}
-                    </div>
-                )}
-                <ThumbUpAltIcon color={activeIconColor} onClick={(e) => this.handleOpen(e)}></ThumbUpAltIcon>
+                <AvatarGroup max={2} onClick={(e) => this.handleOpen(e)}>
+                    {voterObjects && voterObjects.map((voter) => (
+                        <Avatar key={voter.id} src={voter.avatarURL} />
+                    ))}
+                </AvatarGroup>
                 <Modal className="vote-list-modal" open={modalOpen} 
                     onClose={(e)  => this.handleClose(e)} 
                     BackdropComponent={Backdrop}>

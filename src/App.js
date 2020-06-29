@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import Login from './components/login/Login'
+import Button from '@material-ui/core/Button'
 import Dashboard from './components/dashboard/Dashboard'
 import Emoji from 'react-emoji-render'
 import img from './logo.svg'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined'
-import { LogoutSelector, CircularAddBtn } from './components/styled'
-import MenuItem from '@material-ui/core/MenuItem'
+import { CircularAddBtn } from './components/styled'
 import { getAuthedUser, setAuthedUser, removeAuthedUser, getQuestions, setAuthedUserQuestions, setAvailableQuestions } from './actions'
 import { isEmptyObject } from './helpers'
 import {  Route, Link } from 'react-router-dom'
@@ -95,18 +95,21 @@ class App extends Component {
                 <div className="logo-container">
                     <Logo className="spin"></Logo>
                 </div>
+                <div className="sign-out-container">
+                    {authedUser && (
+                    <Button className="sign-out-btn" variant="contained" onClick={ () => this.handleLogout() }>
+                        {LOGOUT_TEXT}
+                    </Button>)}
+                </div>
                 <div className="authed-user-container">
                     {!authedUser && (
                         <AccountCircleOutlinedIcon style={{fill: "white"}} fontSize="large"></AccountCircleOutlinedIcon>
                     )}
                     {authedUser && authedUser.avatarURL && (
-                        <AuthedUserIcon avatarURL={ authedUser.avatarURL }>
-                            <LogoutSelector
-                                labelId="logout-selector"
-                                id="logout-selector">
-                                    <MenuItem key="logout" onClick={ () => this.handleLogout() }>{LOGOUT_TEXT}</MenuItem>
-                            </LogoutSelector>
-                        </AuthedUserIcon>
+                        <Button variant="contained">
+                            <AuthedUserIcon avatarURL={ authedUser.avatarURL }></AuthedUserIcon>
+                            Welcome, {authedUser.name.split(' ')[0]}
+                        </Button>
                     )}
                 </div>
                 <div className="app-container" ref={this.appContainer} onTransitionEnd={() => { this.onTransitionEnd() } }>

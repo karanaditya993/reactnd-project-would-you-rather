@@ -2,13 +2,21 @@
     position: absolute;
     top: 0;
     width: 100%;
-    height: 80%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, .15);
     backdrop-filter: blur(5px);
     border-radius: 5%;;
+}
+
+.page-not-found {
+    height: 100%;
+    width: 100%;
+    background-image: url("/pagenotfound.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .question-percentage-container {
