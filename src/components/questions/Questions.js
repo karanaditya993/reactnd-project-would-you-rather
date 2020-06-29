@@ -44,7 +44,11 @@ class Questions extends Component {
         })
     }
     handleContainerClick(questionId, option) {
-        this.props.dispatch(updateQuestionsWithVotes(questionId, option, this.props));
+        setTimeout(() => {
+            this.props.dispatch(updateQuestionsWithVotes(questionId, option, this.props)).then((isAnswering) => {
+                this.props.onQuestionClicked(isAnswering)
+            })
+        }, 0)
     }
     activeIconColor(idx) {
         return idx === this.state.hoveredOptionIdx ? 'secondary' : 'action'
@@ -59,31 +63,32 @@ class Questions extends Component {
                         <SwipeableViews index={activeQuestionIdx}>
                             {data.map((question) => (
                                 <React.Fragment key={question.id} >
-                                    <Container className="question-widget" disableGutters>
-                                    <div className="question-banner">
-                                        <Avatar src={users[question.author].avatarURL}></Avatar>{users[question.author].name} asks
-                                        <div>{QUESTION_NAME}</div>
-                                    </div>
-                                    <div className="question-options">
-                                        <div className="option-one"
-                                            onMouseEnter={() => this.handleMouseEnter(0)} onMouseLeave={() => this.handleMouseLeave()}
-                                            onClick={() => this.handleContainerClick(question.id, 'optionOne')}>
-                                            {question.optionOne.text}
-                                            <Vote votes={question.optionOne.votes} activeIconColor={this.activeIconColor(0)}></Vote>
+                                    <Container className="question-widget" disableGutters component={Link} to={`/questions/${question.id}`}>
+                                        <div className="question-banner">
+                                            <Avatar src={users[question.author].avatarURL}></Avatar>{users[question.author].name} asks
+                                            <div>{QUESTION_NAME}</div>
                                         </div>
-                                        <div className="option-two"
-                                        onMouseEnter={() => this.handleMouseEnter(1)}
-                                        onMouseLeave={() => this.handleMouseLeave()}
-                                        onClick={() => this.handleContainerClick(question.id, 'optionTwo')}>
-                                            {question.optionTwo.text}
-                                            <Vote votes={question.optionTwo.votes} activeIconColor={this.activeIconColor(1)}></Vote>
+                                        <div className="question-options">
+                                            <div className="option-one"
+                                                onMouseEnter={() => this.handleMouseEnter(0)} onMouseLeave={() => this.handleMouseLeave()}
+                                                onClick={() => this.handleContainerClick(question.id, 'optionOne')}>
+                                                {question.optionOne.text}
+                                                <Vote votes={question.optionOne.votes} activeIconColor={this.activeIconColor(0)}></Vote>
+                                            </div>
+                                            <div className="option-two"
+                                                onMouseEnter={() => this.handleMouseEnter(1)}
+                                                onMouseLeave={() => this.handleMouseLeave()}
+                                                onClick={() => this.handleContainerClick(question.id, 'optionTwo')}>
+                                                {question.optionTwo.text}
+                                                <Vote votes={question.optionTwo.votes} activeIconColor={this.activeIconColor(1)}></Vote>
+                                            </div>
                                         </div>
-                                    </div>
-                                </Container>
-                                <Link className="view-details-link" to={`/questions/${question.id}`}>
-                                    <Button variant="outlined" color="primary">toggle details</Button>
-                                </Link>
-                            </React.Fragment>
+                                    </Container>
+                                    <div className="created-on-text">Created on: {new Date(question.timestamp).toDateString()}</div>
+                                    <Link className="view-details-link" to={`/questions/${question.id}`}>
+                                        <Button variant="outlined" color="primary">toggle details</Button>
+                                    </Link>
+                                </React.Fragment>
                             ))}
                         </SwipeableViews>
                         <Pagination className="pagination-counter" 

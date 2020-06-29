@@ -40,6 +40,7 @@
     height: 40px;
     display: flex;
     align-items: center;
+    transition: width 2s ease-in-out;
 }
 
 .percentage-value {

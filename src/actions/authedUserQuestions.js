@@ -18,6 +18,7 @@ function _formatAuthedUserQuestions({ users, authedUser, questions }) {
 
 export function setAuthedUserQuestions(props) {
     const authedUserQuestions = _formatAuthedUserQuestions(props)
+    authedUserQuestions.sort((a, b) => b.timestamp - a.timestamp);
     return {
         type: SET_AUTHED_USER_QUESTIONS,
         authedUserQuestions: authedUserQuestions,
@@ -27,6 +28,7 @@ export function setAuthedUserQuestions(props) {
 export function addAuthedUserQuestion(store, formattedQuestion) {
     const authedUserQuestions = store.authedUserQuestions || []
     authedUserQuestions.push(formattedQuestion)
+    authedUserQuestions.sort((a, b) => b.timestamp - a.timestamp);
     return {
         type: SET_AUTHED_USER_QUESTIONS,
         authedUserQuestions: authedUserQuestions,

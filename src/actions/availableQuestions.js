@@ -8,8 +8,8 @@ function _formatAvailableQuestions({ users, authedUser, questions }) {
         const answeredQuestions = Object.values(questions).filter((question) => users[authedUser].answers[question.id])
         const unansweredQuestions = Object.values(questions).filter((question) => !users[authedUser].answers[question.id])
         return {
-            answeredQuestions,
-            unansweredQuestions 
+            answeredQuestions: answeredQuestions.sort((a, b) => b.timestamp - a.timestamp),
+            unansweredQuestions: unansweredQuestions.sort((a, b) => b.timestamp - a.timestamp)
         }
     }
     return {
@@ -27,6 +27,7 @@ export function setAvailableQuestions(props) {
 }
 
 export function updateAvailableQuestions(questions) {
+    questions.sort((a, b) => b.timestamp - a.timestamp);
     return {
         type: UPDATE_AVAILABLE_QUESTIONS,
         availableQuestions: questions,

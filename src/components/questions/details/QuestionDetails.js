@@ -35,6 +35,9 @@ class QuestionDetails extends Component {
     }
     getPercentageWidth(optionVotes) {
         const totalVotes = this.state.question.optionOne.votes.length + this.state.question.optionTwo.votes.length
+        if (totalVotes === 0) {
+            return '0%'
+        }
         return `${Math.round((optionVotes.length / totalVotes) * 100)}%`
     }
     render() {
