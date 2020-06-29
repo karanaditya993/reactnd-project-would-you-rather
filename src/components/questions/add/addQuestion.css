@@ -1,6 +1,9 @@
 .add-question-container {
     width: 100%;
     height: 100%;
+    position: absolute;
+    top: 0;
+    background: white;
 }
 
 .add-question-form-container {
